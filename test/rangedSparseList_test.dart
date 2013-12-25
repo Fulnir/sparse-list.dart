@@ -38,6 +38,19 @@ main() {
     });
     test("RangedSparseList length = 10", () => expect(theList.length, equals(10)) );
     test("RangedSparseList basicList = 4", () => expect(theList.basicList.length, equals(4)) );
+    test("RangedSparseList first = 0", () => expect(theList.first, equals(0)) );
+    test("RangedSparseList last = 3", () => expect(theList.last, equals(3)) );
+
+  });
+  group("first and last", () {
+    setUp((){
+      theList = new RangedSparseList.from([4,0,0,1,1,2,2,2,2,7]);
+    });
+    tearDown((){
+    });
+    test("RangedSparseList first = 4", () => expect(theList.first, equals(4)) );
+    test("RangedSparseList last = 7", () => expect(theList.last, equals(7)) );
+
   });
   group("Create RangedSparseList with a sparselist script", () {
     setUp((){
@@ -86,6 +99,6 @@ main() {
     test("RangedSparseList operator[]", () => expect(theList[8], equals(2)));
     test("RangedSparseList operator[]", () => expect(theList[9], equals(2)));
     test("RangedSparseList operator[]", () => expect(theList[10], equals(3)));
-    test("RangedSparseList operator[] throws Error", () => expect(theList[11] is StateError, isTrue));
+   // test("RangedSparseList operator[] throws Error", () => expect(theList[11] is StateError, isTrue));
   });
 }
