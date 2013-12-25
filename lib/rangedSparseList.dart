@@ -26,16 +26,19 @@ class RangedSparseList<E> {
     return basicList.isEmpty;
   }
 
+  /// Returns true if there is at least one element in this collection.
   bool get isNotEmpty => !isEmpty;
 
+  /// Returns the first element.
   E get first {
-    if (length == 0) throw new StateError("No elements");
-    return this[0];
+    if (itemsLength == 0) throw new StateError("No elements");
+    return elementAt(0);
   }
 
+  /// Returns the last element.
   E get last {
-    if (length == 0) throw new StateError("No elements");
-    return this[length - 1];
+    if (itemsLength == 0) throw new StateError("No elements");
+    return elementAt(itemsLength - 1);
   }
 
   /// The number of values in the list.
