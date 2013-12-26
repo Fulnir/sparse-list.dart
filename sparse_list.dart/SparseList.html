@@ -32,7 +32,7 @@
         
 <button id="show-inherited" class="show-inherited">Hide inherited</button>
 <div class="doc">
-<p>This list class is slow and only useful for very large arrays.</p>
+<p>This list class is slow and only useful for very large arrays with chunks of the same value.</p>
 <p>Sequences with the same value are compressed simply with <code>startIndex, numberOfValues, value</code>.
 <code>0,0,0,1,1,2,2,2,2,3</code> is store internal as [[0,3,0],[3,2,1],[5,4,2],[9,1,3]].</p>
 <pre><code>theList = new SparseList.from([0,0,0,1,1,2,2,2,2,3]);
@@ -174,7 +174,7 @@ class SparseList&lt;E&gt; {
    itemsLength = itemsLength + aItem[1];
  }
 
- /// Returns the Dart spript to include in source code.
+ /// Returns the Dart script to include in source code.
  ///     new SparseList.fromSparseList( [
  ///       [0, 3, 0],[3, 2, 1],[5, 4, 2],[9, 1, 3]
  ///     ]);
@@ -450,7 +450,7 @@ void addItem (List aItem) {
 String <strong>createScript</strong>() <a class="anchor-link" href="#createScript"
               title="Permalink to SparseList&lt;E&gt;.createScript">#</a></h4>
 <div class="doc">
-<p>Returns the Dart spript to include in source code.</p>
+<p>Returns the Dart script to include in source code.</p>
 <pre><code>new SparseList.fromSparseList( [
   [0, 3, 0],[3, 2, 1],[5, 4, 2],[9, 1, 3]
 ]);
