@@ -13,7 +13,9 @@ void main(List<String> args) {
 
   addTask('test', createUnitTestTask(the_tests.main()));
 
-  addTask('docs', createDartDocTask(['lib/sparse_list.dart']));
+  addTask('docs', createDartDocTask(['lib/sparse_list.dart'],
+      linkApi: true,
+      excludeLibs: ['logging']));
 
   runHop(args, paranoid: false);
 }
