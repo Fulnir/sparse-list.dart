@@ -80,6 +80,8 @@ main() {
     tearDown((){
     });
     test("SparseList itemList", () => expect(theList.itemList, equals([0,0,0,1,1,2,2,2,2,3])) );
+    test("SparseList itemList", () => expect(theList.toList(), equals([0,0,0,1,1,2,2,2,2,3])) );
+    test("SparseList itemList", () => expect(theList.toList(growable:false), equals([0,0,0,1,1,2,2,2,2,3])) );
     test("SparseList createScript()", () => expect(theList.createScript(), equals('new SparseList.fromSparseList( [\n  [0,3,0],[3,2,1],[5,4,2],[9,1,3]\n]);')) );
   });
   group("Return element", () {
@@ -100,5 +102,21 @@ main() {
     test("SparseList operator[]", () => expect(theList[9], equals(2)));
     test("SparseList operator[]", () => expect(theList[10], equals(3)));
    // test("SparseList operator[] throws Error", () => expect(theList[11] is StateError, isTrue));
+  });
+  group("forEach()", () {
+    setUp((){
+      theList = new SparseList.from([0,0,0,1,1,2,2,2,2,3]);
+    });
+    tearDown((){
+    });
+    test("SparseList forEach()", () {
+      var i = 0;
+      var test = [0,0,0,1,1,2,2,2,2,3];
+      theList.forEach((e) {
+        print("e $e i $i");
+        expect(e, equals(test[i++])) ;
+      });
+
+    });
   });
 }

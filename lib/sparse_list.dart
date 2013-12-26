@@ -5,6 +5,8 @@
 //
 
 /**
+ * This list class is slow and only useful for very large arrays.
+ *
  * Sequences with the same value are compressed simply with [startIndex, numberOfValues, value].
  *[0,0,0,1,1,2,2,2,2,3] is store internal as [[0,3,0],[3,2,1],[5,4,2],[9,1,3]].
  *
@@ -77,6 +79,30 @@ class SparseList<E> {
       }
     });
     return theList;
+  }
+  ///Creates a List containing the elements of this Iterable.
+  ///
+  ///The elements are in iteration order. The list is fixed-length if growable is false.
+  List<E> toList({ bool growable: true }) {
+    List<E> result;
+    result = new List.from(itemList, growable: growable );
+    return result;
+  }
+  /// Applies the function f to each element of this collection.
+  void forEach(void action(E element)) {
+    int length = itemsLength;
+    var chunkSize;
+    var chunkValue;
+    basicList.forEach((each) {
+      chunkSize = each[1];
+      chunkValue = each[2];
+      for (var i = 0; i < chunkSize; i++) {
+        action(chunkValue);
+        if (length != itemsLength) {
+          throw new ConcurrentModificationError(this);
+        }
+      }
+    });
   }
 
   /// Creates a list and initializes it using the contents of other.
