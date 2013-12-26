@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Dart Ranged Sparse List
 ---
 
@@ -23,8 +24,13 @@ theList.createScript()
 
 ```
 =======
+=======
+>>>>>>> a80ac459ec43a7502b1a65e54f37292e12ff8cd7
 sparse-list.dart
 ================
 
 A sparse list for large chunks with the same value.
+<<<<<<< HEAD
+>>>>>>> a80ac459ec43a7502b1a65e54f37292e12ff8cd7
+=======
 >>>>>>> a80ac459ec43a7502b1a65e54f37292e12ff8cd7
