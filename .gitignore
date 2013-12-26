@@ -5,3 +5,5 @@
 /.settings/
 
 /tool/packages
+
+/test/testlist_test.dart

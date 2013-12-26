@@ -1,8 +1,9 @@
-name: ranged_sparse_list
+name: sparse_list
 version: 0.0.1
 author: Edwin Bühler <fulnir@gmail.com>
 description: A sparse list for large chunks with the same value.
-homepage: http://github.com/Fulnir/dart-rangend-sparse-list
+homepage: http://github.com/Fulnir/sparse-list.dart
+documentation: http://fulnir.github.io/sparse-list.dart
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dev_dependencies:

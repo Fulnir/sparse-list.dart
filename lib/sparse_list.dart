@@ -8,16 +8,16 @@
  * Sequences with the same value are compressed simply with [startIndex, numberOfValues, value].
  *[0,0,0,1,1,2,2,2,2,3] is store internal as [[0,3,0],[3,2,1],[5,4,2],[9,1,3]].
  *
- *     theList = new RangedSparseList.from([0,0,0,1,1,2,2,2,2,3]);
+ *     theList = new SparseList.from([0,0,0,1,1,2,2,2,2,3]);
  *     theList.createScript()
  *     // Returns
- *     // 'new RangedSparseList.fromSparseList( [\n  [0,3,0],[3,2,1],[5,4,2],[9,1,3]\n]);'
+ *     // 'new SparseList.fromSparseList( [\n  [0,3,0],[3,2,1],[5,4,2],[9,1,3]\n]);'
  *
  */
-class RangedSparseList<E> {
+class SparseList<E> {
   List basicList = new List();
   var itemsLength = 0;
-  RangedSparseList(){
+  SparseList(){
 
   }
 
@@ -80,8 +80,8 @@ class RangedSparseList<E> {
   }
 
   /// Creates a list and initializes it using the contents of other.
-  factory RangedSparseList.from(List other) {
-    var newList = new RangedSparseList();
+  factory SparseList.from(List other) {
+    var newList = new SparseList();
     var currentValue, previousValue;
     var item;
     for (var i = 0; i < other.length; i++) {
@@ -99,11 +99,11 @@ class RangedSparseList<E> {
     return newList;
   }
   /// Creates a list and initializes it using the contents of other.
-  ///     new RangedSparseList.fromSparseList( [
+  ///     new SparseList.fromSparseList( [
   ///       [0, 3, 0],[3, 2, 1],[5, 4, 2],[9, 1, 3]
   ///     ]);
-  factory RangedSparseList.fromSparseList(List other) {
-    var newList = new RangedSparseList();
+  factory SparseList.fromSparseList(List other) {
+    var newList = new SparseList();
     other.forEach((each) {
       newList.basicList.add(each);
       newList.itemsLength = newList.itemsLength + each[1];
@@ -124,11 +124,11 @@ class RangedSparseList<E> {
   }
 
   /// Returns the Dart spript to include in source code.
-  ///     new RangedSparseList.fromSparseList( [
+  ///     new SparseList.fromSparseList( [
   ///       [0, 3, 0],[3, 2, 1],[5, 4, 2],[9, 1, 3]
   ///     ]);
   String createScript() {
-    var script = 'new RangedSparseList.fromSparseList( [\n  ';
+    var script = 'new SparseList.fromSparseList( [\n  ';
     var each;
     var newEntry;
     var sSize = 0;
