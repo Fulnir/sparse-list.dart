@@ -32,6 +32,7 @@
         
 <button id="show-inherited" class="show-inherited">Hide inherited</button>
 <div class="doc">
+<p>This list class is slow and only useful for very large arrays.</p>
 <p>Sequences with the same value are compressed simply with <code>startIndex, numberOfValues, value</code>.
 <code>0,0,0,1,1,2,2,2,2,3</code> is store internal as [[0,3,0],[3,2,1],[5,4,2],[9,1,3]].</p>
 <pre><code>theList = new SparseList.from([0,0,0,1,1,2,2,2,2,3]);
@@ -103,6 +104,30 @@ class SparseList&lt;E&gt; {
      }
    });
    return theList;
+ }
+ ///Creates a List containing the elements of this Iterable.
+ ///
+ ///The elements are in iteration order. The list is fixed-length if growable is false.
+ List&lt;E&gt; toList({ bool growable: true }) {
+   List&lt;E&gt; result;
+   result = new List.from(itemList, growable: growable );
+   return result;
+ }
+ /// Applies the function f to each element of this collection.
+ void forEach(void action(E element)) {
+   int length = itemsLength;
+   var chunkSize;
+   var chunkValue;
+   basicList.forEach((each) {
+     chunkSize = each[1];
+     chunkValue = each[2];
+     for (var i = 0; i &lt; chunkSize; i++) {
+       action(chunkValue);
+       if (length != itemsLength) {
+         throw new ConcurrentModificationError(this);
+       }
+     }
+   });
  }
 
  /// Creates a list and initializes it using the contents of other.
@@ -474,6 +499,47 @@ E elementAt(int index) {
      break;
    }
  }
+ return result;
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="forEach">
+<button class="show-code">Code</button>
+void <strong>forEach</strong>(void action(<a href="../sparse_list.dart/SparseList.html">E</a> element)) <a class="anchor-link" href="#forEach"
+              title="Permalink to SparseList&lt;E&gt;.forEach">#</a></h4>
+<div class="doc">
+<p>Applies the function f to each element of this collection.</p>
+<pre class="source">
+void forEach(void action(E element)) {
+ int length = itemsLength;
+ var chunkSize;
+ var chunkValue;
+ basicList.forEach((each) {
+   chunkSize = each[1];
+   chunkValue = each[2];
+   for (var i = 0; i &lt; chunkSize; i++) {
+     action(chunkValue);
+     if (length != itemsLength) {
+       throw new ConcurrentModificationError(this);
+     }
+   }
+ });
+}
+</pre>
+</div>
+</div>
+<div class="method"><h4 id="toList">
+<button class="show-code">Code</button>
+List&lt;<a href="../sparse_list.dart/SparseList.html">E</a>&gt; <strong>toList</strong>({bool growable: true}) <a class="anchor-link" href="#toList"
+              title="Permalink to SparseList&lt;E&gt;.toList">#</a></h4>
+<div class="doc">
+<p>Creates a List containing the elements of this Iterable.</p>
+<p>The elements are in iteration order. The list is fixed-length if growable is false.</p>
+<pre class="source">
+List&lt;E&gt; toList({ bool growable: true }) {
+ List&lt;E&gt; result;
+ result = new List.from(itemList, growable: growable );
  return result;
 }
 </pre>
