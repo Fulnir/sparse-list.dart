@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 Dart Ranged Sparse List
 ---
 
@@ -18,19 +16,4 @@ theList.createScript()
 // 'new RangedSparseList.fromSparseList( [\n  [0,3,0],[3,2,1],[5,4,2],[9,1,3]\n]);'
 ```
 
-### Table codes
 
-```
-
-```
-=======
-=======
->>>>>>> a80ac459ec43a7502b1a65e54f37292e12ff8cd7
-sparse-list.dart
-================
-
-A sparse list for large chunks with the same value.
-<<<<<<< HEAD
->>>>>>> a80ac459ec43a7502b1a65e54f37292e12ff8cd7
-=======
->>>>>>> a80ac459ec43a7502b1a65e54f37292e12ff8cd7

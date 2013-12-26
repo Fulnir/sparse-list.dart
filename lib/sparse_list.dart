@@ -5,7 +5,7 @@
 //
 
 /**
- * This list class is slow and only useful for very large arrays.
+ * This list class is slow and only useful for very large arrays with chunks of the same value.
  *
  * Sequences with the same value are compressed simply with [startIndex, numberOfValues, value].
  *[0,0,0,1,1,2,2,2,2,3] is store internal as [[0,3,0],[3,2,1],[5,4,2],[9,1,3]].
@@ -48,6 +48,7 @@ class SparseList<E> {
     return itemsLength;
   }
 
+  /// Returns the value at the given index.
   E operator[](int index) => this.elementAt(index);
 
   E elementAt(int index) {
@@ -149,7 +150,7 @@ class SparseList<E> {
     itemsLength = itemsLength + aItem[1];
   }
 
-  /// Returns the Dart spript to include in source code.
+  /// Returns the Dart script to include in source code.
   ///     new SparseList.fromSparseList( [
   ///       [0, 3, 0],[3, 2, 1],[5, 4, 2],[9, 1, 3]
   ///     ]);
