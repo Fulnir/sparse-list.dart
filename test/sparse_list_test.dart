@@ -32,7 +32,7 @@ main() {
   group("Create SparseList with a list", () {
     setUp((){
       theList = new SparseList.from([0,0,0,1,1,2,2,2,2,3]);
-      print("SparseList().from([0,0,0,1,1,2,2,2,2,3]) ${theList.basicList}");
+      //print("SparseList().from([0,0,0,1,1,2,2,2,2,3]) ${theList.basicList}");
     });
     tearDown((){
     });
@@ -55,7 +55,7 @@ main() {
   group("Create SparseList with a sparselist script", () {
     setUp((){
       theList = new SparseList.fromSparseList( [[0,3,0],[3,2,1],[5,4,2],[9,1,3]]);
-      print("SparseList().fromSparseList()) ${theList.basicList}");
+      //print("SparseList().fromSparseList()) ${theList.basicList}");
     });
     tearDown((){
     });
@@ -113,7 +113,7 @@ main() {
       var i = 0;
       var test = [0,0,0,1,1,2,2,2,2,3];
       theList.forEach((e) {
-        print("e $e i $i");
+        //print("e $e i $i");
         expect(e, equals(test[i++])) ;
       });
 
