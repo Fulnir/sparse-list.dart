@@ -177,7 +177,7 @@ class SparseList<E> {
       var updatedChunk = [currentChunk[0],(index - currentChunk[0]),currentValue];
       var newElementChunk = [index,1,value];
       var newRestChunk = [(index + 1),(currentChunk[1] - updatedChunk[1] - 1),currentValue];
-      print("currentChunk $currentChunk updatedChunk $updatedChunk newElementChunk $newElementChunk newRestChunk $newRestChunk ");
+      //print("currentChunk $currentChunk updatedChunk $updatedChunk newElementChunk $newElementChunk newRestChunk $newRestChunk ");
       if(newRestChunk[1] > 0)  {
         basicList.insert((oldChunkPosition + 1), newRestChunk);
       }

@@ -33,6 +33,10 @@ packages:
     description: html5lib
     source: hosted
     version: "0.9.1"
+  junitconfiguration:
+    description: junitconfiguration
+    source: hosted
+    version: "1.0.0"
   logging:
     description: logging
     source: hosted

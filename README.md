@@ -14,4 +14,5 @@ theList.createScript()
 // 'new RangedSparseList.fromSparseList( [\n  [0,3,0],[3,2,1],[5,4,2],[9,1,3]\n]);'
 ```
 
-
+The library unicode_helper uses the SparseList to store the unicode table.
+(which has a file size of 26KB instead the uncompressed standard Dart list with 1.8MB)
