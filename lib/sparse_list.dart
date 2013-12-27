@@ -8,7 +8,7 @@
  * This list class is slow and only useful for very large arrays with chunks of the same value.
  *
  * Sequences with the same value are compressed simply with [startIndex, numberOfValues, value].
- *[0,0,0,1,1,2,2,2,2,3] is store internal as [[0,3,0],[3,2,1],[5,4,2],[9,1,3]].
+ * [0,0,0,1,1,2,2,2,2,3] is store internal as [[0,3,0],[3,2,1],[5,4,2],[9,1,3]].
  *
  *     theList = new SparseList.from([0,0,0,1,1,2,2,2,2,3]);
  *     theList.createScript()
@@ -16,6 +16,7 @@
  *     // 'new SparseList.fromSparseList( [\n  [0,3,0],[3,2,1],[5,4,2],[9,1,3]\n]);'
  *
  */
+
 class SparseList<E> {
   List basicList = new List();
   var itemsLength = 0;
@@ -52,19 +53,7 @@ class SparseList<E> {
   E operator[](int index) => this.elementAt(index);
 
   E elementAt(int index) {
-    if (length <= index) throw new StateError("Not enough elements");
-    // TODO workaround. Optimize
-    var result;
-    var startChunk, endChunk;
-    for (var i = 0; i < basicList.length; i++) {
-      startChunk = basicList[i][0];
-      endChunk = startChunk + basicList[i][1];
-      if ((index >= startChunk) && (index < endChunk)) {
-        result = basicList[i][2];
-        break;
-      }
-    }
-    return result;
+    return basicList[_chunkPositionForElementAt(index)][2];
   }
 
   ///  Returns the uncompressed list.
@@ -125,6 +114,7 @@ class SparseList<E> {
     newList.itemsLength = other.length;
     return newList;
   }
+
   /// Creates a list and initializes it using the contents of other.
   ///     new SparseList.fromSparseList( [
   ///       [0, 3, 0],[3, 2, 1],[5, 4, 2],[9, 1, 3]
@@ -137,8 +127,73 @@ class SparseList<E> {
     });
     return newList;
   }
+
+  int _chunkPositionForElementAt(int index) {
+    if (length <= index) throw new StateError("Not enough elements");
+    var result;
+    var startChunk, endChunk;
+    var fuzzyPosition = ((index * basicList.length) / itemsLength).round();
+    //print("fuzzyPosition $fuzzyPosition = round (index $index * basicList.length ${basicList.length}) / itemsLength $itemsLength ");
+    if (fuzzyPosition >= basicList.length) {
+      fuzzyPosition = basicList.length - 1;
+    }
+    var fuzzyChunk = basicList[fuzzyPosition];
+    // TODO Workaround. Optimize with bigger and then smaller steps ?
+    if (index >= fuzzyChunk[0]) {
+      // forwards
+      for (var i = fuzzyPosition; i < basicList.length; i++) {
+        startChunk = basicList[i][0];
+        endChunk = startChunk + basicList[i][1];
+        if ((index >= startChunk) && (index < endChunk)) {
+          result = i;
+          break;
+        }
+      }
+    } else {
+      // backwards
+      ;
+      for (var i = (fuzzyPosition - 1); i < basicList.length; i--) {
+        startChunk = basicList[i][0];
+        endChunk = startChunk + basicList[i][1];
+        if ((index >= startChunk) && (index < endChunk)) {
+          result = i;
+          break;
+        }
+      }
+    }
+    return result;
+  }
+
+  List _chunkAt(int index) {
+    return basicList[_chunkPositionForElementAt(index)];
+  }
+
+  /// Set the value at the given index.
+  void operator[]=(int index, var value) {
+    var oldChunkPosition = _chunkPositionForElementAt(index);
+    var currentChunk = basicList[oldChunkPosition];
+    var currentValue = currentChunk[2];
+    if (value != currentValue) {
+      var updatedChunk = [currentChunk[0],(index - currentChunk[0]),currentValue];
+      var newElementChunk = [index,1,value];
+      var newRestChunk = [(index + 1),(currentChunk[1] - updatedChunk[1] - 1),currentValue];
+      print("currentChunk $currentChunk updatedChunk $updatedChunk newElementChunk $newElementChunk newRestChunk $newRestChunk ");
+      if(newRestChunk[1] > 0)  {
+        basicList.insert((oldChunkPosition + 1), newRestChunk);
+      }
+      basicList.insert((oldChunkPosition + 1), newElementChunk);
+      if(updatedChunk[1] == 0) {
+        basicList.removeAt(oldChunkPosition);
+      } else {
+        basicList[oldChunkPosition] = updatedChunk;
+      }
+    }
+  }
+  // TODO use operator[]= code for insert()
+
   /// Adds a new value to the end of this list.
   void add(value) {
+    // TODO replace last chunk if posible.
     var item = [0,0,value];
     basicList.add(item);
     itemsLength++;

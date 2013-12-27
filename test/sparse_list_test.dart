@@ -118,5 +118,30 @@ main() {
       });
 
     });
+
+    group("Change element", () {
+      setUp((){
+        theList = new SparseList.from([0,0,0,1,1,2,2,2,2,3]);
+      });
+      tearDown((){
+      });
+      test("Set element at 4 = 1", () {
+        theList[4] = 1;
+        expect(theList.itemList, equals([0,0,0,1,1,2,2,2,2,3]));
+      });
+      test("Set element at 4 = 5", () {
+        theList[4] = 4;
+        expect(theList.itemList, equals([0,0,0,1,4,2,2,2,2,3]));
+      });
+      test("Set element at 0 = 5", () {
+        theList[0] = 5;
+        expect(theList.itemList, equals([5,0,0,1,1,2,2,2,2,3]));
+      });
+      test("Set element at 9 = 5", () {
+        theList[9] = 5;
+        expect(theList.itemList, equals([0,0,0,1,1,2,2,2,2,5]));
+      });
+    });
+
   });
 }

@@ -1,5 +1,5 @@
 name: sparse_list
-version: 0.0.1
+version: 0.0.8
 author: Edwin Bühler <fulnir@gmail.com>
 description: A sparse list for large chunks with the same value.
 homepage: http://github.com/Fulnir/sparse-list.dart
