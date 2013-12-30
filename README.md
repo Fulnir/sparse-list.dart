@@ -1,7 +1,7 @@
 Dart Ranged Sparse List
 ---
 
-Copyright (C) 2013 Edwin Bühler. All Rights Reserved.
+[![Build Status](https://drone.io/github.com/Fulnir/sparse-list.dart/status.png)](https://drone.io/github.com/Fulnir/sparse-list.dart/latest)
 
 
 Sequences with the same value are compressed simply with [startIndex, numberOfValues, value].
